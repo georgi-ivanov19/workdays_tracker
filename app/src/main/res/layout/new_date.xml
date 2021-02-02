@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <EditText
+        android:id="@+id/new_date_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:hint="New Date"/>
+    <Button
+        android:id="@+id/newDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_date_text"
+        android:layout_alignParentRight="true"
+        android:text="Save"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:background="@android:color/transparent"/>
+
+
+
+
+
+</RelativeLayout>
