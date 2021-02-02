@@ -26,7 +26,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
 
-    private DBHandler (Context context){
+    public DBHandler(Context context){
         super(context, NAME, null, VERSION);
     }
 
@@ -83,7 +83,7 @@ public class DBHandler extends SQLiteOpenHelper {
         cv.put(STATUS, status);
         db.update(WORKDAYS_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
     }
-    public void updateDate(int id, int date){
+    public void updateDate(int id, String date){
         ContentValues cv = new ContentValues();
         cv.put(DATE, date);
         db.update(WORKDAYS_TABLE,cv, ID+"=?",new String[]{String.valueOf(id)});
