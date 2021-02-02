@@ -41,6 +41,11 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.ViewHolder> {
         return number!=0;
     }
 
+    public void setDate(List<DateModel> datesList){
+        this.dateList = datesList;
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CheckBox date;
         ViewHolder(View view){
