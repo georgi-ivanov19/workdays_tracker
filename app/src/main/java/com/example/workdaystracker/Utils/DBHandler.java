@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TextView;
 
 import com.example.workdaystracker.Model.DateModel;
+import com.example.workdaystracker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,9 @@ public class DBHandler extends SQLiteOpenHelper {
         cv.put(WORKDAY, date.getDate());
         cv.put(STATUS,0);
         db.insert(WORKDAYS_TABLE,null,cv);
+        int totalDays = totalDaysWorked();
+        int paidDays = totalDaysPaid();
+
     }
 
     public List<DateModel> getAllDates(){
@@ -80,6 +85,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(STATUS, status);
         db.update(WORKDAYS_TABLE, cv, ID + "=?", new String[]{String.valueOf(id)});
+
     }
     public void updateDate(int id, String date){
         ContentValues cv = new ContentValues();
@@ -89,5 +95,20 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void deleteDate(int id){
         db.delete(WORKDAYS_TABLE,ID+"=?", new String[]{String.valueOf(id)});
+    }
+
+    public int totalDaysWorked(){
+        return getAllDates().size();
+    }
+
+
+    public int totalDaysPaid(){
+        int paidDays = 0;
+        for(DateModel dm : getAllDates()){
+            if(dm.getStatus()!=0){
+                paidDays++;
+            }
+        }
+        return paidDays;
     }
 }
