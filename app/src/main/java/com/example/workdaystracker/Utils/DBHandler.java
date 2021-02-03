@@ -5,12 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.icu.lang.UCharacter;
 
 import com.example.workdaystracker.Model.DateModel;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -19,10 +17,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String NAME = "WorkdaysDB";
     private static final String WORKDAYS_TABLE = "workdays";
     private static final String ID = "id";
-    private static final String DATE = "date";
+    private static final String WORKDAY = "workday";
     private static final String STATUS = "status";
-    private static final String CREATE_DATE_TABLE = "CREATE TABLE " + WORKDAYS_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                                                + DATE + "TEXT, " + STATUS + ", INTEGER)";
+    private static final String CREATE_DATE_TABLE = "CREATE TABLE " + WORKDAYS_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +  WORKDAY + " TEXT NOT NULL,"  +
+            STATUS +  " INTEGER);";
 
     private SQLiteDatabase db;
 
@@ -49,7 +47,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void insertDate(DateModel date){
         ContentValues cv = new ContentValues();
-        cv.put(DATE, date.getDate());
+        cv.put(WORKDAY, date.getDate());
         cv.put(STATUS,0);
         db.insert(WORKDAYS_TABLE,null,cv);
     }
@@ -65,7 +63,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     do{
                         DateModel date = new DateModel();
                         date.setId(c.getInt(c.getColumnIndex(ID)));
-                        date.setDate(c.getString(c.getColumnIndex(DATE)));
+                        date.setDate(c.getString(c.getColumnIndex(WORKDAY)));
                         date.setStatus((c.getInt(c.getColumnIndex(STATUS))));
                         datesList.add(date);
                     } while(c.moveToNext());
@@ -85,7 +83,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
     public void updateDate(int id, String date){
         ContentValues cv = new ContentValues();
-        cv.put(DATE, date);
+        cv.put(WORKDAY, date);
         db.update(WORKDAYS_TABLE,cv, ID+"=?",new String[]{String.valueOf(id)});
     }
 

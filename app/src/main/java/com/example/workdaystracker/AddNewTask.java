@@ -101,6 +101,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                     DateModel dateModel = new DateModel();
                     dateModel.setDate(date);
                     dateModel.setStatus(0);
+                    db.insertDate(dateModel);
                 }
                 dismiss();
             }
