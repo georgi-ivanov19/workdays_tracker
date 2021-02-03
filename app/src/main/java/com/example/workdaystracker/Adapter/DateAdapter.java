@@ -69,6 +69,13 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.ViewHolder> {
         return activity;
     }
 
+    public void deleteItem(int position){
+        DateModel item = dateList.get(position);
+        db.deleteDate(item.getId());
+        dateList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public void editItem(int position){
         DateModel item = dateList.get(position);
         Bundle bundle = new Bundle();

@@ -21,7 +21,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String ID = "id";
     private static final String DATE = "date";
     private static final String STATUS = "status";
-    private static final String CREATE_DATE_TABLE = "CREATE TABLE " + WORKDAYS_TABLE + "(" + ID + ", INTEGER PRIMARY KEY AUTOINCREMENT, "
+    private static final String CREATE_DATE_TABLE = "CREATE TABLE " + WORKDAYS_TABLE + "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                                                 + DATE + "TEXT, " + STATUS + ", INTEGER)";
 
     private SQLiteDatabase db;

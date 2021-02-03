@@ -13,10 +13,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.workdaystracker.Model.DateModel;
 import com.example.workdaystracker.Utils.DBHandler;
+import com.example.workdaystracker.Adapter.DateAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.w3c.dom.UserDataHandler;
@@ -33,26 +36,25 @@ public class AddNewTask extends BottomSheetDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
     }
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.new_date,container,false);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         return  view;
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         newDateText = getView().findViewById(R.id.new_date_text);
         newDateSaveButton = getView().findViewById(R.id.newDateButton);
-
-        db = new DBHandler(getActivity());
-        db.openDataBase();
 
         boolean isUpdate = false;
         final Bundle bundle = getArguments();
@@ -64,6 +66,10 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 newDateSaveButton.setTextColor(ContextCompat.getColor(getContext(),R.color.colorPrimaryDark));
             }
         }
+
+        db = new DBHandler(getActivity());
+        db.openDataBase();
+
         newDateText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,6 +113,5 @@ public class AddNewTask extends BottomSheetDialogFragment {
         if(activity instanceof  DialogCloseListener){
             ((DialogCloseListener)activity).handleDialogClose(dialog);
         }
-
     }
 }
